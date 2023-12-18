@@ -16,14 +16,6 @@ export const AuthContextProvider = ({ children }) => {
     setRegisterInfo(info);
   }, []);
 
-  // const [registerError, setRegisterError] = useState(null);
-  // const [isRegisterLoading, setIsRegisterLoading] = useState(false);
-  // const [registerInfo, setRegisterInfo] = useState({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  // });
-
   return (
     <AuthContext.Provider
       value={{
