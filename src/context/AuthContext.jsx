@@ -15,8 +15,8 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   console.log("USERR", user);
-  // console.log("registerInfo", registerInfo);
-  // console.log("registerError", registerError);
+  console.log("registerInfo", registerInfo);
+  console.log("registerError", registerError);
 
   useEffect(() => {
     const user = localStorage.getItem("User");
@@ -51,6 +51,11 @@ export const AuthContextProvider = ({ children }) => {
     [registerInfo]
   );
 
+  const logoutUser = useCallback(() => {
+    localStorage.removeItem("User");
+    setUser(null);
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -60,6 +65,7 @@ export const AuthContextProvider = ({ children }) => {
         registerUser,
         registerError,
         isRegisterLoading,
+        logoutUser,
       }}
     >
       {children}
