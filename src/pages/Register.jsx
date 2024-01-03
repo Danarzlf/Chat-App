@@ -50,7 +50,6 @@ const Register = () => {
               />
               <Button variant="primary" type="submit">
                 {isRegisterLoading ? "Creating your account" : "Register"}
-                Register
               </Button>
               {registerError?.error && (
                 <Alert variant="danger">
