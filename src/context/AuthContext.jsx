@@ -1,6 +1,7 @@
 import { createContext, useCallback, useState } from "react";
 import { baseUrl, postRequest } from "../utils/service";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
@@ -21,16 +22,31 @@ export const AuthContextProvider = ({ children }) => {
   });
 
   console.log("USERR", user);
-  console.log("loginInfo", loginInfo);
+  // console.log("loginInfo", loginInfo);
   // console.log("registerInfo", registerInfo);
   // console.log("registerError", registerError);
 
   //protecting route agar kalo direfresh data user tetep ada
+  //pakai local
   useEffect(() => {
     const user = localStorage.getItem("User");
 
     setUser(JSON.parse(user));
   }, []);
+
+  //pakai cookie
+  // useEffect(() => {
+  //   const user = Cookies.get("User");
+  //   // console.log("User dari Cookie:", user);
+
+  //   try {
+  //     const parsedUser = JSON.parse(user);
+  //     setUser(parsedUser);
+  //   } catch (error) {
+  //     console.error("Error saat parsing user:", error);
+  //     // Handle error disini, seperti menetapkan state pengguna default atau menghapus cookie
+  //   }
+  // }, []);
 
   const updateRegisterInfo = useCallback((info) => {
     setRegisterInfo(info);
@@ -57,6 +73,10 @@ export const AuthContextProvider = ({ children }) => {
         return setRegisterError(response);
       }
 
+      // Simpan ke Cookie
+      // Cookies.set("User", JSON.stringify(response));
+
+      // Simpan ke Local Storage
       localStorage.setItem("User", JSON.stringify(response));
       setUser(response);
     },
